@@ -1,0 +1,111 @@
+{
+  "name": "vscode-gemini",
+  "displayName": "VS Code Gemini",
+  "description": "Intégration de Google Gemini dans VS Code",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Programming Languages"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gemini-sidebar",
+          "title": "Gemini AI",
+          "icon": "media/gemini-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gemini-sidebar": [
+        {
+          "id": "geminiView",
+          "name": "Gemini AI"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vscode-gemini.openGemini",
+        "title": "Ouvrir Gemini AI"
+      },
+      {
+        "command": "vscode-gemini.generateCode",
+        "title": "Générer du code avec Gemini"
+      },
+      {
+        "command": "vscode-gemini.fixError",
+        "title": "Corriger l'erreur avec Gemini"
+      }
+    ],
+    "configuration": {
+      "title": "Gemini AI",
+      "properties": {
+        "vscode-gemini.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Clé API pour Google Gemini"
+        },
+        "vscode-gemini.model": {
+          "type": "string",
+          "default": "gemini-pro",
+          "enum": [
+            "gemini-pro",
+            "gemini-pro-vision",
+            "gemini-ultra"
+          ],
+          "description": "Modèle Gemini à utiliser"
+        },
+        "vscode-gemini.autoFixErrors": {
+          "type": "boolean",
+          "default": false,
+          "description": "Détecter et corriger automatiquement les erreurs d'exécution"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "vscode-gemini.generateCode",
+          "group": "gemini"
+        },
+        {
+          "command": "vscode-gemini.fixError",
+          "group": "gemini"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "test-compile": "tsc -p ./",
+    "test-watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.1.3"
+  }
+}
